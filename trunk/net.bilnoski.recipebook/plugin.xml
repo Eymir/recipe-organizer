@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="net.bilnoski.recipebook.internal.application.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="net.bilnoski.recipebook.ui.CookbookPerspective"
+            fixed="false"
+            id="net.bilnoski.recipebook.cookbook.perspective"
+            name="Cookbook">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="true"
+            class="net.bilnoski.recipebook.ui.RecipeExplorerView"
+            id="net.bilnoski.recipebook.views.explorer"
+            name="Recipe Explorer"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="net.bilnoski.recipebook.application"
+            name="Recipe Book">
+         <property
+               name="windowImages"
+               value="icons/alt_window_16.gif,icons/alt_window_32.gif">
+         </property>
+         <property
+               name="appName"
+               value="Recipe Book">
+         </property>
+         <property
+               name="startupProgressRect"
+               value="7,275,440,10">
+         </property>
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini">
+         </property>
+         <property
+               name="startupForegroundColor"
+               value="000000">
+         </property>
+         <property
+               name="startupMessageRect"
+               value="7,460,400,15">
+         </property>
+      </product>
+   </extension>
+
+</plugin>
