@@ -164,18 +164,18 @@ v1
    * flat directory of XML files, one per recipe, embedded duplicated metadata
    * allow archiving to a single zip/jar with indexes - recipe archive will port to other UIs
  * views (primary perspective - Cookbook)
-   * Recipe Explorer view: list of recipes/files (categorized, filtered, custom columns)
-   * Recipe view (editor?): selected recipe shows in this view
+   * _Recipe Explorer_ view: list of recipes/files (categorized, filtered, custom columns)
+   * _Recipe_ view (editor?): selected recipe shows in this view
      * rendered html?
      * controls for play-back are here
-   * Tag Cloud view: min to max font size, scale by number of recipes with that label
+   * _Tag Cloud_ view: min to max font size, scale by number of recipes with that label
      * select a label to filter a new Recipe Explorer view by that tag/label - new view with secondary ID
-   * Label Explorer view: show all values for a label and what recipes have that value
-     * Note: this is the same as the Recipe Explorer, but shows all categorizations? Probably don't need this view
+   * ~~Label Explorer view~~: show all values for a label and what recipes have that value
+     * *Note*: this is the same as the Recipe Explorer, but shows all categorizations? Probably don't need this view
      * 3-tier tree - label name, value, recipe title
      * multi-select to edit values
      * drag and drop
-   * Labels view: show labels and values for the current selected Recipe view
+   * _Labels_ view: show labels and values for the current selected Recipe view
  * Recipe Editor - secondary perspective
    * File -> New, save, save as, save all, etc. - flush persistence of any edits done to the current recipe(s)
    * views
