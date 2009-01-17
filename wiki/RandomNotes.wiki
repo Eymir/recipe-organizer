@@ -51,7 +51,7 @@ Ingredients
  * list ingredients with highest granularity
  * "original order", and allow other sorting options (alpha, quantity)
 
-= Interface =
+= Non-Standard Interface =
 Three main UI parts:
  * touch screen
  * voice activation
@@ -169,13 +169,23 @@ v1
      * rendered html?
      * controls for play-back are here
    * _Tag Cloud_ view: min to max font size, scale by number of recipes with that label
+     * styled text area, styled ranges
      * select a label to filter a new Recipe Explorer view by that tag/label - new view with secondary ID
+     * right-click label to contribute to _Filter_ view
    * ~~Label Explorer view~~: show all values for a label and what recipes have that value
      * *Note*: this is the same as the Recipe Explorer, but shows all categorizations? Probably don't need this view
      * 3-tier tree - label name, value, recipe title
      * multi-select to edit values
      * drag and drop
    * _Labels_ view: show labels and values for the current selected Recipe view
+   * _Filter_ view: complex filtering options (allow multiple of this view?)
+     * if available, contribute view menu item to any "filterable" view to link it
+     * linked filterable view will use the filter described in the _Filter_ view
+     * statusline contribution for "filter active"
+     * filters - undo/redo, history, bookmarks
+     * only AND comparisons like, text compares "contains" ignore case
+   * Bookmarks
+     * filter + filing tuple, opens a new explorer
  * Recipe Editor - secondary perspective
    * File -> New, save, save as, save all, etc. - flush persistence of any edits done to the current recipe(s)
    * views
@@ -190,3 +200,6 @@ v2
  * touch screen UI
  * TTS - research "Microsoft Sam" and built-in windows TTS
  * voice activation
+ * labels allow multimap
+ * labels allow tail expansion
+   * need to consider ugly tag cloud items, etc, everything but filing looks bad with a control character
