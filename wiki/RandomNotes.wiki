@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Notes taken from a one-page conceptual document
 
 = Recipe Book =
 
@@ -190,4 +190,3 @@ v2
  * touch screen UI
  * TTS - research "Microsoft Sam" and built-in windows TTS
  * voice activation
-
