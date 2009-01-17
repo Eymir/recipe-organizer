@@ -1,0 +1,20 @@
+<recipeList>
+	<recipe>
+		<title>Spicy Orange Beef</title>
+		<ingredientList>
+			<ingredient ordinal="1" quantity="2" unit="tbsp" kind="vegetable oil" />
+			<ingredient ordinal="2" quantity="1" unit="lb" kind="round steak" preparation="cut into thin strips on the diagonal" />
+		</ingredientList>
+		<labels>
+			<label name="Main Ingredient" value="Beef" />
+			<label name="Meat" />
+			<label name="Servings" value="4" />
+		</labels>
+		<instructions>
+			<step ordinal="1">In a wok or skillet, heat oil over medium-high heat. Add beef strips one to three at a time. Stir-fry for three minutes or until browned, removing the done pieces to a plate lined with paper towels.</step>
+         <step ordinal="2">Return all the beef to the wok. Stir in orange peel, garlic, and ginger; stir-fry one minute.</step>
+         <step ordinal="3">In a medium bowl, combine cornstarch, broth, soy sauce, sherry, marmalade, and red pepper. Pour this mixture into the beef, stirring constantly. Bring to a boil over medium heat and cook for one minute.</step>
+         <step ordinal="4">Serve hot</step>
+		</instructions>
+	</recipe>
+</recipeList>
