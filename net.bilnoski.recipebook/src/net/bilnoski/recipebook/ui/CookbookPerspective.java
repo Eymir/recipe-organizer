@@ -6,7 +6,7 @@ import org.eclipse.ui.IPerspectiveFactory;
 public class CookbookPerspective implements IPerspectiveFactory
 {
    public static final String PERSPECTIVE_ID = "net.bilnoski.recipebook.cookbook.perspective";
-   @Override
+   
    public void createInitialLayout(IPageLayout layout)
    {
       String editorArea = layout.getEditorArea();

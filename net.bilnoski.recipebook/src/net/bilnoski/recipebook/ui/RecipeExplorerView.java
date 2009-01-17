@@ -1,10 +1,14 @@
 package net.bilnoski.recipebook.ui;
 
+import net.bilnoski.recipebook.db.RecipeDataStore;
+import net.bilnoski.recipebook.internal.Activator;
+import net.bilnoski.recipebook.model.Cookbook;
 import net.bilnoski.recipebook.ui.BasicViewActions.CollapseAllAction;
 import net.bilnoski.recipebook.ui.BasicViewActions.ExpandAllAction;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -42,10 +46,11 @@ public class RecipeExplorerView extends ViewPart
       //TODO: add content and label providers
       
       IToolBarManager tbm = this.getViewSite().getActionBars().getToolBarManager();
-      ExpandAllAction exp = new ExpandAllAction(viewer);
-      tbm.add(exp);
-      CollapseAllAction col = new CollapseAllAction(viewer);
-      tbm.add(col);
+      tbm.add(new ExpandAllAction(viewer));
+      tbm.add(new CollapseAllAction(viewer));
+      
+      IMenuManager mm = getViewSite().getActionBars().getMenuManager();
+      mm.add(new LoadAction());
    }
    
    public static class CategorizedFilteredTree extends FilteredTree
@@ -105,6 +110,25 @@ public class RecipeExplorerView extends ViewPart
 
          tb2.add(catSelAction);
          tb2.update(false);
+      }
+   }
+   
+   private static class LoadAction extends Action 
+   {
+      public LoadAction()
+      {
+         super("Load");
+      }
+      
+      @Override
+      public void run()
+      {
+         Cookbook cb = Activator.getDefault().getService(Cookbook.class);
+         try {
+            new RecipeDataStore().load(cb);
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
       }
    }
 }
