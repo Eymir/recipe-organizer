@@ -128,9 +128,9 @@ Eclipse libraries- SWT/JFace/GC
 For touch screen, will have to have a separate UI framework that can read the same data store
 
 == Text To Speech ==
-http://en.wikipedia.org/wiki/Festival_Speech_Synthesis_System
-http://en.wikipedia.org/wiki/FreeTTS
-http://freetts.sourceforge.net/docs/index.php
+[http://en.wikipedia.org/wiki/Festival_Speech_Synthesis_System]<br/>
+[http://en.wikipedia.org/wiki/FreeTTS]<br/>
+[http://freetts.sourceforge.net/docs/index.php]
 
 == Data Store ==
 Searchable Indecies:
@@ -151,8 +151,8 @@ class Recipe
 data store manager - API between the controllers and storage
  * API: functions-as-queries, return Recipe instances
    * lookupSingle(Traits):Recipe - find a match to the given Traits or null result
-   * lookup(Traits):Collection<Recipe> - find matches or empty list
-   * v2- lookup(Traits, float pct):Collection<Recipe> - find matches or empty list within the given match threshold
+   * lookup(Traits):Collection`<Recipe>` - find matches or empty list
+   * v2- lookup(Traits, float pct):Collection`<Recipe>` - find matches or empty list within the given match threshold
  * v1- store each recipe as a separate XML file
    * process all on app start and store in-memory indecies
    * when a recipe is requested, follow the index to the file on disk, read, return record structure (weak reference) for display
@@ -190,6 +190,4 @@ v2
  * touch screen UI
  * TTS - research "Microsoft Sam" and built-in windows TTS
  * voice activation
-
-
 
