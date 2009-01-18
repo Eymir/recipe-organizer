@@ -79,4 +79,9 @@ public class PropertyMap
    {
       return values.hashCode();
    }
+
+   public Set<PropertyKey> keySet()
+   {
+      return values.keySet();
+   }
 }

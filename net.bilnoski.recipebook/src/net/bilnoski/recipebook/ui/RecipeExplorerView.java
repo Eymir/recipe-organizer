@@ -1,7 +1,5 @@
 package net.bilnoski.recipebook.ui;
 
-import java.util.Collections;
-
 import net.bilnoski.recipebook.db.RecipeDataStore;
 import net.bilnoski.recipebook.internal.Activator;
 import net.bilnoski.recipebook.model.Cookbook;
@@ -52,6 +50,8 @@ public class RecipeExplorerView extends ViewPart
       ft.setInitialText("<Type Filter Text>");
       viewer = ft.getViewer();
       
+      getSite().setSelectionProvider(viewer);
+      
       //TODO: parse secondary view ID into filters and columns
       
       TreeViewerColumn tvc = new TreeViewerColumn(viewer, SWT.NONE);
@@ -60,6 +60,8 @@ public class RecipeExplorerView extends ViewPart
       tvc.getColumn().setText("Recipe");
       tvc.getColumn().setWidth(400);
       viewer.getTree().setHeaderVisible(true);
+      viewer.getTree().setSortColumn(tvc.getColumn());
+      viewer.getTree().setSortDirection(SWT.UP);
       
       viewer.setContentProvider(new CP());
       viewer.setInput(this);
@@ -134,6 +136,7 @@ public class RecipeExplorerView extends ViewPart
    
    private static class CP implements ITreeContentProvider
    {
+      Object[] EMPTY = new Object[0];
       public Object[] getChildren(Object parentElement)
       {
          return null;
@@ -155,7 +158,7 @@ public class RecipeExplorerView extends ViewPart
          {
             return ((Cookbook)inputElement).getRecipes().toArray();
          }
-         return Collections.emptyList().toArray();
+         return EMPTY;
       }
 
       public void dispose()
