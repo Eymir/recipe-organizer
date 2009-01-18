@@ -22,8 +22,13 @@
    </extension>
    <extension
          point="org.eclipse.ui.views">
+      <category
+            id="net.bilnoski.recipebook.cookbook.category"
+            name="Cookbook">
+      </category>
       <view
             allowMultiple="true"
+            category="net.bilnoski.recipebook.cookbook.category"
             class="net.bilnoski.recipebook.ui.RecipeExplorerView"
             id="net.bilnoski.recipebook.views.explorer"
             name="Recipe Explorer"
@@ -35,6 +40,14 @@
             category="org.eclipse.ui"
             class="org.eclipse.ui.ExtensionFactory:progressView"
             id="org.eclipse.ui.views.ProgressView">
+      </view>
+      <view
+            allowMultiple="false"
+            category="net.bilnoski.recipebook.cookbook.category"
+            class="net.bilnoski.recipebook.ui.RecipeLabelsView"
+            id="net.bilnoski.recipebook.views.labels"
+            name="Recipe Labels"
+            restorable="true">
       </view>
    </extension>
    <extension
@@ -68,6 +81,18 @@
                value="7,460,400,15">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="net.bilnoski.recipebook.cookbook.perspective">
+         <viewShortcut
+               id="net.bilnoski.recipebook.views.explorer">
+         </viewShortcut>
+         <viewShortcut
+               id="net.bilnoski.recipebook.views.labels">
+         </viewShortcut>
+      </perspectiveExtension>
    </extension>
 
 </plugin>
