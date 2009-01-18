@@ -1,21 +1,32 @@
 package net.bilnoski.recipebook.ui;
 
+import java.util.Collections;
+
 import net.bilnoski.recipebook.db.RecipeDataStore;
 import net.bilnoski.recipebook.internal.Activator;
 import net.bilnoski.recipebook.model.Cookbook;
 import net.bilnoski.recipebook.ui.BasicViewActions.CollapseAllAction;
 import net.bilnoski.recipebook.ui.BasicViewActions.ExpandAllAction;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.TreeViewerColumn;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
 import org.eclipse.ui.part.ViewPart;
@@ -43,7 +54,15 @@ public class RecipeExplorerView extends ViewPart
       
       //TODO: parse secondary view ID into filters and columns
       
-      //TODO: add content and label providers
+      TreeViewerColumn tvc = new TreeViewerColumn(viewer, SWT.NONE);
+      tvc.setLabelProvider(new ColumnLabelProvider());
+      tvc.getColumn().setMoveable(true);
+      tvc.getColumn().setText("Recipe");
+      tvc.getColumn().setWidth(400);
+      viewer.getTree().setHeaderVisible(true);
+      
+      viewer.setContentProvider(new CP());
+      viewer.setInput(this);
       
       IToolBarManager tbm = this.getViewSite().getActionBars().getToolBarManager();
       tbm.add(new ExpandAllAction(viewer));
@@ -113,7 +132,42 @@ public class RecipeExplorerView extends ViewPart
       }
    }
    
-   private static class LoadAction extends Action 
+   private static class CP implements ITreeContentProvider
+   {
+      public Object[] getChildren(Object parentElement)
+      {
+         return null;
+      }
+
+      public Object getParent(Object element)
+      {
+         return null;
+      }
+
+      public boolean hasChildren(Object element)
+      {
+         return false;
+      }
+
+      public Object[] getElements(Object inputElement)
+      {
+         if (inputElement instanceof Cookbook)
+         {
+            return ((Cookbook)inputElement).getRecipes().toArray();
+         }
+         return Collections.emptyList().toArray();
+      }
+
+      public void dispose()
+      {
+      }
+
+      public void inputChanged(Viewer viewer, Object oldInput, Object newInput)
+      {
+      }
+   }
+   
+   private class LoadAction extends Action 
    {
       public LoadAction()
       {
@@ -123,12 +177,33 @@ public class RecipeExplorerView extends ViewPart
       @Override
       public void run()
       {
-         Cookbook cb = Activator.getDefault().getService(Cookbook.class);
-         try {
-            new RecipeDataStore().load(cb);
-         } catch (Exception e) {
-            e.printStackTrace();
-         }
+         Job j = new Job("Loading Cookbook"){
+            @Override
+            protected IStatus run(IProgressMonitor monitor)
+            {
+               monitor.beginTask("Loading Cookbook", IProgressMonitor.UNKNOWN);
+               final Cookbook cb = Activator.getDefault().getService(Cookbook.class);
+               try {
+                  new RecipeDataStore().load(cb);
+                  PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable(){
+                     public void run()
+                     {
+                        viewer.setInput(cb);
+                        viewer.refresh();
+                     }
+                  });
+                  return Status.OK_STATUS;
+               } catch (Exception e) {
+                  e.printStackTrace();
+               }
+               finally
+               {
+                  monitor.done();
+               }
+               return new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Error loading cookbook");
+            }
+         };
+         j.schedule();
       }
    }
 }
